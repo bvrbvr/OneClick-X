@@ -3,40 +3,26 @@
 В соответствии с новыми законами Российской Федерации, я должен предупредить вас, что **не рекомендую** использовать полученную вами информацию для посещения web сайтов заблокированных на территории Российской Федерации!
 Вся предоставленная информация должна быть использована исключительно в целях **обучения**.
 
+# Xray-Shadowsocks-VLESS
 
-In accordance with the new laws of the Russian Federation, I must warn you that **I do not recommend** using the information you have received to visit websites blocked in the territory of the Russian Federation!
-All information provided should be used exclusively for **training purposes**.
+Простая "однокликовая" установка сервера Xray в Docker-контейнере.
 
-# Xray-shadowsocks-vless
-easy "one-click" install of xray server in Docker container
+## Как использовать
 
-# How to
-* execute `./deploy.sh`
-* enjoy
+1. Запустите скрипт командой:  
+   ```bash
+   ./deploy.sh
 
 # Main deploy.sh options
 `./deploy.sh` script could be executed with special options
-* `reload` - to "clear" init of xray container
-* `remove` - to remove xray container and image
-* `restart` - to recreate container (all settings will be saved)
-* `uuid` - get random uuid (only if xray container is up)
-* `your@email.com` - to provide your email for xray configuration file
+* `reload` — очистить и перезапустить инициализацию Xray-контейнера.
+* `remove` - удалить контейнер Xray и его образ.
+* `restart` - пересоздать контейнер (все настройки сохранятся).
+* `uuid` - получить случайный UUID (работает только если контейнер запущен).
+* `your@email.com` - указать ваш email для конфигурационного файла Xray.
 
-to use option just add it after `./deploy.sh` command for example `./deploy.sh reload` or `./deploy.sh user@domain.com`
+Если скрипт запускается впервые, он соберет Docker-образ, запустит контейнер Xray и выведет данные для клиентской конфигурации.
+При повторном запуске без параметров скрипт просто покажет данные для клиентской конфигурации.
+Важно: Если вы укажете email как параметр, это всегда приведет к перезагрузке сервера Xray, и данные для клиентской конфигурации изменятся.
 
-if `./deploy.sh` executed first time - it will build image, start xray container and print client config creds
-
-if execute `./deploy.sh` without option again - it will just print client config creds
-
-**WARN** if you provide an email as option it always reloads xray server and thats why client config creds. will be changed
-
-# Xray base configuration
-* shadowsocks port `23`
-* shadowsocks method `2022-blake3-aes-128-gcm`
-* shadowsocks transport `tcp` and `udp`
-
-* vless port `443`
-* vless transport `tcp`
-* vless security `reality`
-
-**WARN** server trys to simulate regular website it uses one address from `fake_sites.txt` randomly on startup
+**WARN** Сервер имитирует обычный веб-сайт. Для этого при запуске случайным образом выбирается один адрес из файла `fake_sites.txt`
