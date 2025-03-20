@@ -1,0 +1,71 @@
+{
+  "log": {
+    "loglevel": "info"
+  },
+  "routing": {
+    "rules": [],
+    "domainStrategy": "AsIs"
+  },
+  "inbounds": [
+    {
+      "port": 23,
+      "tag": "ss",
+      "protocol": "shadowsocks",
+      "settings": {
+        "method": "2022-blake3-aes-128-gcm",
+        "password": "SHADOWSOCKS_PWD",
+        "network": "tcp,udp"
+      }
+    },
+    {
+      "port": 443,
+      "protocol": "vless",
+      "tag": "vless_tls",
+      "settings": {
+        "clients": [
+          {
+            "id": "XRAY_UUID",
+            "email": "CLIENT_EMAIL",
+            "flow": "xtls-rprx-vision"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+                "realitySettings": {
+                        "show": false,
+                        "dest": "FAKE_DOMAIN:443",
+                        "xver": 0,
+                        "serverNames": [
+                                "FAKE_DOMAIN"
+                        ],
+                        "privateKey": "PRIV_KEY",
+                        "minClientVer": "",
+                        "maxClientVer": "",
+                        "maxTimeDiff": 0,
+                        "shortIds": [
+                                "SHORT_ID"
+                        ]
+                }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "block"
+    }
+  ]
